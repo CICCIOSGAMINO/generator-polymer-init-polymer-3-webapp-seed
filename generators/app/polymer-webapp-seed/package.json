@@ -1,0 +1,15 @@
+{
+  "name": "<%= appNameTag %>",
+  "version": "1.0.0",
+  "description": "<%= appDesc %>",
+  "main": "index.html",
+  "flat": true,
+  "author": "@TODO",
+  "license": "MIT",
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0-pre.1",
+    "@polymer/paper-button": "^3.0.0-pre.1",
+    "@webcomponents/shadycss": "^1.0.5",
+    "@webcomponents/webcomponentsjs": "^1.0.8"
+  }
+}

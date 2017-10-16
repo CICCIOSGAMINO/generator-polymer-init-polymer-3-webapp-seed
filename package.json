@@ -1,0 +1,55 @@
+{
+  "name": "generator-polymer-init-polymer-3-webapp-seed",
+  "version": "0.0.0",
+  "description": "Yeoman generator for Polymer 3.0 WebApp Skeleton",
+  "homepage": "https://github.com/CICCIOSGAMINO/generator-polymer-init-polymer-3-webapp-seed",
+  "author": {
+    "name": "@cicciosgamino",
+    "email": "marco.canali@gmail.com",
+    "url": "https://github.com/CICCIOSGAMINO"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "Polymer 3.0",
+    "WebApp",
+    "Seed",
+    "WebApp Skeleton",
+    "Progressive Web App",
+    "PWA",
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "yeoman-test": "^1.6.0",
+    "yeoman-assert": "^3.0.0",
+    "nsp": "^2.6.3",
+    "eslint": "^4.1.0",
+    "eslint-config-xo-space": "^0.16.0",
+    "jest": "^19.0.2",
+    "jest-cli": "^20.0.0"
+  },
+  "dependencies": {
+    "yeoman-generator": "^1.0.0",
+    "chalk": "^1.1.3",
+    "yosay": "^2.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "prepublish": "nsp check",
+    "pretest": "eslint . --fix",
+    "test": "jest"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "repository": "https://github.com/CICCIOSGAMINO/generator-polymer-init-polymer-3-webapp-seed.git",
+  "license": "MIT"
+}
