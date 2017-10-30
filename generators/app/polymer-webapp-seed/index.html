@@ -22,23 +22,33 @@
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= appName  %>">
+    <link rel="icon" sizes="128x128" href="images/icon128x128.png">
+    <link rel="icon" sizes="192x192" href="images/icon192x192.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="<%= appName  %>">
 
+    <!-- Safari startup image -->
+    <!-- <link rel="apple-touch-startup-image" href="/launch.png"> --> 
+
     <!-- Homescreen icons -->
-    <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+    <link rel="apple-touch-icon" href="images/manifest/ios-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon72x72.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/manifest/icon120x120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/manifest/icon152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/manifest/icon180x180.png">
 
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="<%= themeColor %>">
     <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- multiple icons for IE -->
+    <meta name="msapplication-square70x70logo" content="icon70x70.png">
+    <meta name="msapplication-square150x150logo" content="icon150x150.png">
+    <meta name="msapplication-square310x310logo" content="icon310x310.png">
 
     <!-- Module & Polyfills --> 
     <script 
