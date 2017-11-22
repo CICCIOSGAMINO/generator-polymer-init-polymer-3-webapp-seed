@@ -27,8 +27,8 @@ module.exports = class extends Generator {
     {
       type: 'input',
       name: 'themeColor',
-      message: 'What would you like your theme color to be ? (#92f442)',
-      default: '#92f442',
+      message: 'What would you like your theme color to be ? (#1976D2)',
+      default: '#1976D2',
     }];
 
     return this.prompt(prompts).then(props => {
@@ -60,13 +60,71 @@ module.exports = class extends Generator {
     // Ready to use the appNameTag
     const appNameTag = this.props.appNameTag;
 
-    // Copy all files in the polymer-webapp-seed folder but not
-    // files starting with _
+    // Copy the images 
+    this.fs.copy(
+      `${this.templatePath()}/images/**/*`,
+      `${this.destinationPath()}/images/`
+    ); 
+
+    // Copy the sw.js file 
+    this.fs.copy(
+      this.templatePath('sw.js'),
+      this.destinationPath('sw.js')
+    );
+
+    // Copy the License File 
+    this.fs.copy(
+      this.templatePath('LICENSE.md'),
+      this.destinationPath('LICENSE.md')
+    );
+
+    // Copy the README.md file 
+    this.fs.copy(
+      this.templatePath('README.md'),
+      this.destinationPath('README.md')
+    );
+
+    // Copy the .gitignore file 
+    this.fs.copy(
+      this.templatePath('.gitignore'),
+      this.destinationPath('.gitignore')
+    );
+
+    // Handle the index.html
     this.fs.copyTpl(
-      `${this.templatePath()}/**/!(_)*`,
-      this.destinationPath(),
+      this.templatePath('index.html'),
+      this.destinationPath('index.html'),
       this.props
     );
+
+    // Handle the package.json
+    this.fs.copyTpl(
+      this.templatePath('package.json'),
+      this.destinationPath('package.json'),
+      this.props
+    );
+
+    // Handle the manifest.json
+    this.fs.copyTpl(
+      this.templatePath('manifest.json'),
+      this.destinationPath('manifest.json'),
+      this.props
+    );
+
+    // Handle the polymer.json
+    this.fs.copyTpl(
+      this.templatePath('polymer.json'),
+      this.destinationPath('polymer.json'),
+      this.props
+    );
+
+    // Copy all files in the polymer-webapp-seed folder but not
+    // files starting with _
+    // this.fs.copyTpl(
+    //  `${this.templatePath()}/**/!(_)*`,
+    //  this.destinationPath(),
+    //  this.props
+    //);
 
     // prepare and copy the web-app element with right tag name
     this.fs.copyTpl(
@@ -78,6 +136,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.installDependencies();
+    // this.installDependencies();
+    this.yarnInstall();
   }
 };

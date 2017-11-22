@@ -27,7 +27,7 @@ export class <%= className %> extends PolymerElement {
                 height: 250px;
                 margin: 1em;
                 padding: 1em;
-                background-color: red;
+                background-color: #1976D2;
               }
             </style>
             <div class="main">
@@ -61,6 +61,13 @@ export class <%= className %> extends PolymerElement {
 
   ready() {
     super.ready();
+    
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('click',this._log);   
+
     this.timer = setInterval(_ => {
       this.count++;
       console.log(this.count);
@@ -71,11 +78,6 @@ export class <%= className %> extends PolymerElement {
 
     // Use Async Timeout 
     Async.timeOut.after(5000).run(this._myTask);
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener('click',this._log);
   }
 
   disconnectedCallback() {

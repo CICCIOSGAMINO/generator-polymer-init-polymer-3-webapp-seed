@@ -57,7 +57,6 @@
 
     <!-- Import the my-app element module -->
     <script type="module" src="src/<%= appNameTag %>.js"></script>
-    <script type="module" src="src/simple-element.js"></script>
 
     <!-- Load and register pre-caching Service Worker -->
     <script>
@@ -65,7 +64,7 @@
 
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.register(baseUrl + 'service-worker.js');
+          navigator.serviceWorker.register(baseUrl + 'sw.js');
         });
       }
     </script>
@@ -77,7 +76,7 @@
         font-family: 'Roboto', 'Noto', sans-serif;
         line-height: 1.5;
         min-height: 100vh;
-        background: linear-gradient(to bottom right, #F44336, #FF5722);
+        background: linear-gradient(to bottom right, #1976D2, #FF5722);
       }
     </style>
   </head>
@@ -87,4 +86,17 @@
     </<%= appNameTag %>>
     <!-- Built with love using Polymer WebApp Seed > based on Polymer Starter Kit -->
   </body>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      // Console a Welcome message for Developers 
+      console.log(
+        `%c %c <%= appName %> \n%c<%= appDesc %> `,
+        `padding:10px 11px 5px 11px;background:url(${baseUrl}/images/manifest/icon96x96.png) no-repeat;background-size:cover;`,
+        `font-size: 22px; color: <%= themeColor %>`,
+        `font-size: 16px; color: rgb(40, 51, 76);`
+      );
+    })
+  </script>
+
 </html>
