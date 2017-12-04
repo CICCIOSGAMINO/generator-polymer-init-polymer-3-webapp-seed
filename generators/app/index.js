@@ -27,8 +27,8 @@ module.exports = class extends Generator {
     {
       type: 'input',
       name: 'themeColor',
-      message: 'What would you like your theme color to be ? (#1976D2)',
-      default: '#1976D2',
+      message: 'What would you like your theme color to be ? (#673AB7)',
+      default: '#673AB7',
     }];
 
     return this.prompt(prompts).then(props => {
@@ -132,6 +132,13 @@ module.exports = class extends Generator {
       this.destinationPath(`src/${appNameTag}.js`),
       this.props
     );
+
+    // Copy all files in the folder but not files starting with _
+    this.fs.copyTpl(
+      `${this.templatePath()}/src/!(_)*`,
+      `${this.destinationPath()}/src/`,
+      this.props
+    ); 
     
   }
 
