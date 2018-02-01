@@ -5,7 +5,7 @@ This code may only be used under the license found at https://github.com/CICCIOS
 
 Attention  > Polymer 3.0 Preview in USE ! */ 
 
-import {Element as PolymerElement} 
+import {Element as PolymerElement, html} 
 from "../node_modules/@polymer/polymer/polymer-element.js";
 import '../node_modules/@polymer/app-layout/app-header/app-header.js';
 import '../node_modules/@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
@@ -18,9 +18,12 @@ import '../node_modules/@polymer/iron-media-query/iron-media-query.js';
 import '../node_modules/@polymer/iron-pages/iron-pages.js';
 import '../node_modules/@polymer/iron-selector/iron-selector.js';
 
+import './app-home.js';
+import './app-404-warning.js';
+import './menu-items.js';
+
 import { afterNextRender } from '../node_modules/@polymer/polymer/lib/utils/render-status.js';
 import { timeOut } from '../node_modules/@polymer/polymer/lib/utils/async.js';
-import { Debouncer } from '../node_modules/@polymer/polymer/lib/utils/debounce.js';
 
 // performance logging
 window.performance && performance.mark && performance.mark('<%= appNameTag %> - before register');
@@ -30,7 +33,7 @@ export class <%= className %> extends PolymerElement {
   static get is() { return '<%= appNameTag %>' }
 
   static get template() {
-    return `
+    return html`
     <style>
 
       :host {
@@ -38,10 +41,10 @@ export class <%= className %> extends PolymerElement {
         position: relative;
         padding-top: 130px;
         padding-bottom: 64px;
-        min-height: 100vh;
-        --app-primary-color: #202020;
-        --app-secondary-color: #757575;
-        --app-accent-color: #172C50;
+       
+        --app-primary-color: <%= themeColor %>;
+        --app-secondary-color: <%= secondaryColor %>;
+        --app-accent-color: <%= accentColor %>;
         --paper-button-ink-color: var(--app-accent-color);
         --paper-icon-button-ink-color: var(--app-accent-color);
         --paper-spinner-color: var(--app-accent-color);
@@ -151,30 +154,38 @@ export class <%= className %> extends PolymerElement {
         @apply --layout-center-center;
       }
 
+      /* Drawer */
+      app-drawer {
+        z-index: 3;
+      }
+
       .drawer-list {
-        margin: 0 20px;
+        text-align: center;
       }
 
       .drawer-list a {
         display: block;
-        padding: 0 16px;
-        line-height: 40px;
+        /* padding: 0 16px; */
+        padding-top: 1em;
+        padding-bottom: 1em;
+        /* line-height: 40px; */ 
+        font-size: 1.2em;
         text-decoration: none;
-        color: var(--app-secondary-color);
+        color: var(--app-dark-grey-color);
       }
+
+      /* TODO
+      .drawer-list .user-badge {
+        background-color: var(--app-dark-grey-color);
+        color: var(--app-white-color);
+      } */ 
 
       .drawer-list a.iron-selected {
-        color: black;
+        color: var(--app-dark-grey-color);
+        background-color: var(--app-primary-color);
         font-weight: bold;
       }
-
-      shop-cart-modal {
-        z-index: 2;
-      }
-
-      app-drawer {
-        z-index: 3;
-      }
+      /* End Drawer */
 
       iron-pages {
         max-width: 1440px;
@@ -200,16 +211,6 @@ export class <%= className %> extends PolymerElement {
         text-decoration: underline;
       }
 
-      .demo-label {
-        box-sizing: border-box;
-        width: 120px;
-        padding: 6px;
-        margin: 8px auto 0;
-        background-color: var(--app-primary-color);
-        color: white;
-        text-transform: uppercase;
-      }
-
       /* small screen */
       @media (max-width: 767px) {
         :host {
@@ -227,36 +228,40 @@ export class <%= className %> extends PolymerElement {
 
     </style>
 
-    <shop-analytics key="UA-39334307-16"></shop-analytics>
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
     <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+    <app-route 
+        route="{{route}}" 
+        pattern="/:page" 
+        data="{{routeData}}" 
+        tail="{{subroute}}">
+    </app-route>
 
-    <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
+    <!-- Import the element with the sections for menu & tabs to browse the pages --> 
+    <menu-items items="{{items}}" item-name="{{itemName}}"></menu-items>
 
-    <!--
-      shop-category-data provides the list of categories.
-    -->
-    <shop-category-data categories="{{categories}}"></shop-category-data>
+    <iron-media-query 
+        query="max-width: 767px" 
+        query-matches="{{smallScreen}}">
+    </iron-media-query>
 
-    <!--
-      shop-cart-data maintains the state of the user's shopping cart (in localstorage) and
-      calculates the total amount.
-    -->
-    <shop-cart-data id="cart" cart="{{cart}}" num-items="{{numItems}}" total="{{total}}"></shop-cart-data>
+    <iron-media-query 
+        query="min-width: 1600px" 
+        query-matches="{{largeScreen}}">
+    </iron-media-query>
 
     <app-header role="navigation" id="header" effects="waterfall" condenses="" reveals="">
       <app-toolbar>
         <div class="left-bar-item">
-          <paper-icon-button class="menu-btn" icon="menu" on-click="_toggleDrawer" aria-label="Categories">
+          <paper-icon-button class="menu-btn" icon="menu" on-click="_toggleDrawer" aria-label="items">
           </paper-icon-button>
-          <a class="back-btn" href="/list/[[categoryName]]" tabindex="-1">
+          <a class="back-btn" href="/" tabindex="-1">
             <paper-icon-button icon="arrow-back" aria-label="Go back"></paper-icon-button>
           </a>
         </div>
-        <div class="logo" main-title=""><a href="/" aria-label="SHOP Home">SHOP</a></div>
+        <div class="logo" main-title=""><a href="/" aria-label="Home">Home</a></div>
         <div class="cart-btn-container">
           <a href="/cart" tabindex="-1">
             <paper-icon-button icon="shopping-cart" aria-label\$="Shopping cart: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
@@ -269,11 +274,11 @@ export class <%= className %> extends PolymerElement {
       <div id="tabContainer" sticky\$="[[_shouldShowTabs]]" hidden\$="[[!_shouldShowTabs]]">
         <dom-if if="[[_shouldRenderTabs]]">
           <template>
-            <app-tabs selected="[[categoryName]]" attr-for-selected="name">
-              <dom-repeat items="[[categories]]" as="category" initial-count="4">
+            <app-tabs selected="{{itemName}}" attr-for-selected="name">
+              <dom-repeat items="[[items]]" as="category" initial-count="4">
                 <template>
-                <app-tab name="[[category.name]]">
-                  <a href="/list/[[category.name]]">[[category.title]]</a>
+                <app-tab name="[[item.name]]">
+                  <a href="/list/[[item.name]]">[[item.title]]</a>
                 </app-tab>
                 </template>
               </dom-repeat>
@@ -286,31 +291,38 @@ export class <%= className %> extends PolymerElement {
     <!-- Lazy-create the drawer for small screen sizes. -->
     <dom-if if="[[_shouldRenderDrawer]]">
       <template>
+      
       <!-- Two-way bind \`drawerOpened\` since app-drawer can update \`opened\` itself. -->
       <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
-        <iron-selector role="navigation" class="drawer-list" selected="[[categoryName]]" attr-for-selected="name">
-          <dom-repeat items="[[categories]]" as="category" initial-count="4">
+
+        <iron-selector 
+            role="navigation" 
+            class="drawer-list" 
+            selected="{{itemName}}" 
+            attr-for-selected="name">
+
+          <dom-repeat items="[[items]]" as="item" initial-count="8">
             <template>
-              <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
+              <a name="[[item.name]]" href="/[[item.name]]">[[item.title]]</a>
             </template>
           </dom-repeat>
+
         </iron-selector>
+
       </app-drawer>
+      
       </template>
     </dom-if>
 
+    <!-- Pages --> 
     <iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
       <!-- home view -->
-      <shop-home name="home" categories="[[categories]]"></shop-home>
-      <!-- list view of items in a category -->
-      <shop-list name="list" route="[[subroute]]" offline="[[offline]]"></shop-list>
-      <!-- detail view of one item -->
-      <shop-detail name="detail" route="[[subroute]]" offline="[[offline]]"></shop-detail>
-      <!-- cart view -->
-      <shop-cart name="cart" cart="[[cart]]" total="[[total]]"></shop-cart>
-      <!-- checkout view -->
-      <shop-checkout name="checkout" cart="[[cart]]" total="[[total]]" route="{{subroute}}"></shop-checkout>
-
+      <app-home name="home"></app-home>
+      <page-one name="one"></page-one>
+      <page-two name="two"></page-two>
+      <page-three name="three"></page-three>
+      <page-four name="four"></page-four>
+      <!-- Fallback 404 --> 
       <app-404-warning name="404"></app-404-warning>
     </iron-pages>
 
@@ -420,7 +432,7 @@ export class <%= className %> extends PolymerElement {
         import('./lazy-resources.js').then(() => {
           // Register service worker if supported.
           if ('serviceWorker' in navigator) {
-            // navigator.serviceWorker.register('service-worker.js', {scope: '/'});
+            navigator.serviceWorker.register('service-worker.js', {scope: '/'});
           }
           this._notifyNetworkStatus();
           this.loadComplete = true;

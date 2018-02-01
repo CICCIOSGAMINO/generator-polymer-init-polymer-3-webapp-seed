@@ -1,7 +1,14 @@
 {
   "entrypoint": "index.html",
   "shell": "src/<%= appNameTag %>.html",
-  "fragments": [],
+  "fragments": [
+    "src/page-one.js",
+    "src/page-two.js",
+    "src/page-three.js",
+    "src/page-four.js",
+    "src/lazy-resources.js",
+    "src/app-404-warning.js"
+  ],
   "sources": [
     "src/**/*",
     "images/**/*",
@@ -9,9 +16,12 @@
   ],
   "extraDependencies": [
     "manifest.json",
-    "node_modules/@webcomponents/webcomponents-loader.js"
+    "node_modules/@webcomponents/*"
   ],
   "lint": {
     "rules": ["polymer-3"] 
-  }
+  },
+  "builds": [
+    { "preset": "es6-unbundled" }
+  ]
 }

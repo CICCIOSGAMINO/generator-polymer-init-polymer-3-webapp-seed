@@ -1,7 +1,8 @@
 import { Element as PolymerElement, html} from '../node_modules/@polymer/polymer/polymer-element.js';
 import '../node_modules/@polymer/iron-icon/iron-icon.js';
+import './menu-items.js';
 
-class App404Warning extends PolymerElement {
+class PageThree extends PolymerElement {
   static get template() {
     return html`
     <style>
@@ -25,14 +26,30 @@ class App404Warning extends PolymerElement {
 
     </style>
 
+    <menu-items items="{{items}}"></menu-items>
+
     <div>
-      <iron-icon icon="error"></iron-icon>
-      <h1>Sorry, we couldn't find that page</h1>
+      <iron-icon icon="home"></iron-icon>
+      <h1>Page Three - [[menuItem.title]]</h1>
+      <img src="[[menuItem.image]]" alt="menuItem.title">
     </div>
 `;
   }
 
-  static get is() { return 'app-404-warning'; }
+  static get is() { return 'page-three'; }
+  
+  static get properties() {
+    return {
+      menuItem: {
+        computed: '_computeMenuObject(items)'
+      }
+    }
+  }
+
+  _computeMenuObject(items) {
+    return items[3] || {}
+  }
+
 }
 
-customElements.define(App404Warning.is, App404Warning);
+customElements.define(PageThree.is, PageThree);

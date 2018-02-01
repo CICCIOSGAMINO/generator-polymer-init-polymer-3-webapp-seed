@@ -29,7 +29,20 @@ module.exports = class extends Generator {
       name: 'themeColor',
       message: 'What would you like your theme color to be ? (#673AB7)',
       default: '#673AB7',
-    }];
+    },
+    {
+      type: 'input',
+      name: 'secondaryColor',
+      message: 'What would you like your secondary color to be ? (#FFEB3B)',
+      default: '#FFEB3B',
+    },
+    {
+      type: 'input',
+      name: 'accentColor',
+      message: 'What would you like your accent color to be ? (#76FF03)',
+      default: '#76FF03',
+    }
+  ];
 
     return this.prompt(prompts).then(props => {
 
@@ -68,8 +81,8 @@ module.exports = class extends Generator {
 
     // Copy the sw.js file 
     this.fs.copy(
-      this.templatePath('sw.js'),
-      this.destinationPath('sw.js')
+      this.templatePath('service-worker.js'),
+      this.destinationPath('service-worker.js')
     );
 
     // Copy the License File 
@@ -117,14 +130,6 @@ module.exports = class extends Generator {
       this.destinationPath('polymer.json'),
       this.props
     );
-
-    // Copy all files in the polymer-webapp-seed folder but not
-    // files starting with _
-    // this.fs.copyTpl(
-    //  `${this.templatePath()}/**/!(_)*`,
-    //  this.destinationPath(),
-    //  this.props
-    //);
 
     // prepare and copy the web-app element with right tag name
     this.fs.copyTpl(

@@ -1,10 +1,10 @@
-import { Element } from '../node_modules/@polymer/polymer/polymer-element.js';
+import { Element as PolymerElement, html} from '../node_modules/@polymer/polymer/polymer-element.js';
 import '../node_modules/@polymer/iron-icon/iron-icon.js';
 import './app-icons.js';
 
-class AppNetworkWarning extends Element {
+class AppNetworkWarning extends PolymerElement {
   static get template() {
-    return `
+    return html`
     <style>
 
       :host {

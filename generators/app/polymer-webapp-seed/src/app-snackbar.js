@@ -1,11 +1,11 @@
-import { Element } from '../node_modules/@polymer/polymer/polymer-element.js';
+import { Element as PolymerElement, html} from '../node_modules/@polymer/polymer/polymer-element.js';
 import { flush } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js';
 import { Debouncer } from '../node_modules/@polymer/polymer/lib/utils/debounce.js';
 import { timeOut } from '../node_modules/@polymer/polymer/lib/utils/async.js';
 
-class AppSnackbar extends Element {
+class AppSnackbar extends PolymerElement {
   static get template() {
-    return `
+    return html`
     <style>
       :host {
         display: block;

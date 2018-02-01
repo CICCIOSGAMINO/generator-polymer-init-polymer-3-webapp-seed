@@ -1,4 +1,4 @@
-import { Element } from '../node_modules/@polymer/polymer/polymer-element.js';
+import { Element as PolymerElement, html } from '../node_modules/@polymer/polymer/polymer-element.js';
 import { flush } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js';
 import { microTask, timeOut } from '../node_modules/@polymer/polymer/lib/utils/async.js';
 
@@ -26,7 +26,7 @@ $_documentContainer.innerHTML = `<dom-module id="app-tabs-overlay">
 
 document.head.appendChild($_documentContainer);
 
-class AppTabsOverlay extends Element {
+class AppTabsOverlay extends PolymerElement {
 
   static get is() { return 'app-tabs-overlay'; }
 

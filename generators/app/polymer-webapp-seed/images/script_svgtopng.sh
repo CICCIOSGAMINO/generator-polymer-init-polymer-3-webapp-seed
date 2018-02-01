@@ -29,4 +29,11 @@ inkscape -z -e apple-167.png -w 167 -h 167 ../$i
 inkscape -z -e apple-180.png -w 180 -h 180 ../$i
 cd ..
 
+cd "favicon"
+inkscape -z -e favicon-16.png -w 16 -h 16 ../$i
+inkscape -z -e favicon-32.png -w 32 -h 32 ../$i
+inkscape -z -e favicon-64.png -w 64 -h 64 ../$i
+inkscape -z -e favicon-96.png -w 96 -h 96 ../$i
+cd ..
+
 done

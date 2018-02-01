@@ -11,7 +11,11 @@
     <!-- Use relative path with base and rootPath --> 
     <base href="/">
 
-    <link rel="icon" href="images/favicon.ico">
+    <!-- <link rel="icon" href="images/favicon.ico"> --> 
+    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-16.png" sizes="16x16">
+    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-32.png" sizes="32x32">
+    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-64.png" sizes="64x64">
+    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-96.png" sizes="96x96">
 
     <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="manifest.json">
@@ -60,16 +64,17 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<%= appName  %>">
 
-
     <!-- Load and register pre-caching Service Worker -->
     <script>
       const baseUrl = document.querySelector('base').href;
 
+      /*  service-worker.js lazy loaded in app main file 
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
           navigator.serviceWorker.register(baseUrl + 'sw.js');
         });
-      }
+      } */ 
+      
     </script>
 
     <!-- Add any global styles for body, document, etc. -->
@@ -83,7 +88,7 @@
         background: linear-gradient(to bottom right, <%= themeColor %>, #78909C);
       }
 
-      /* styling for rendering while resources are loading */
+      /* styling for rendering while resources are loading  TEXT-VERSION
       <%= appNameTag  %>[unresolved] {
         display: block;
         min-height: 101vh;
@@ -95,6 +100,17 @@
         color: #f5f5f5;
         padding: 0 16px;
         overflow: visible;
+      } */ 
+
+      /* styling for rendering while resources are laoding   GIF-VERSION */
+      <%= appNameTag  %>[unresolved] {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('../images/polymer.svg') center/340px no-repeat;
+        margin-top: -120px;
       }
     </style>
   </head>
@@ -108,8 +124,8 @@
       src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js">
     </script>
 
-    <!-- Import the my-app element module -->
-    <script type="module" src="/src/<%= appNameTag %>.js"></script>
+    <!-- Import the my-app element module 
+    <script type="module" src="/src/<%= appNameTag %>.js"></script> --> 
 
     <script type="module">
       import '/src/<%= appNameTag %>.js'
